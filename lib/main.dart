@@ -45,10 +45,17 @@ class _MyAppState extends State<MyApp> {
     }
   ];
 
+  void resetQuiz() {
+    setState(() {
+      _totalscore = 0;
+      _questionIndex = 0;
+    });
+  }
+
   void _answerQuestion(int score) {
     setState(() {
       _totalscore += score;
-      _questionIndex = _questionIndex + 1;
+      _questionIndex += 1;
     });
   }
 
@@ -68,6 +75,7 @@ class _MyAppState extends State<MyApp> {
             : Result(
                 resultText: 'You did it!',
                 score: _totalscore,
+                resetQuiz: resetQuiz,
               ),
       ),
     );
