@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:hellorectfull/answer.dart';
-import 'package:hellorectfull/question.dart';
+import 'package:hellorectfull/quiz.dart';
+import 'package:hellorectfull/result.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return _MyAppState();
   }
 }
 
 class _MyAppState extends State<MyApp> {
   var _questionIndex = 0;
-  final questions = const [
+  final _questions = const [
     {
       'questionText': 'What is your favourite color?',
       'answers': ['Black', 'Red', 'Green', 'Blue'],
@@ -42,24 +41,13 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: Text('My First App'),
         ),
-        body: _questionIndex < questions.length
-            ? Column(
-                children: [
-                  Question(
-                    questionText: questions[_questionIndex]['questionText'],
-                  ),
-                  ...(questions[_questionIndex]['answers'] as List<String>)
-                      .map((answer) {
-                    return Answer(
-                      selectHandler: _answerQuestion,
-                      answerText: answer,
-                    );
-                  }).toList()
-                ],
+        body: _questionIndex < _questions.length
+            ? Quiz(
+                questions: _questions,
+                questionIndex: _questionIndex,
+                answerQuestion: _answerQuestion,
               )
-            : Center(
-                child: Text('You did it!'),
-              ),
+            : Result('You did it!'),
       ),
     );
   }
