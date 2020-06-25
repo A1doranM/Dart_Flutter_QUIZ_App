@@ -35,7 +35,7 @@ class _MyAppState extends State<MyApp> {
       },
       {
         'questionText': 'What is your favourite sport?',
-        'answers': ['Formula 1', 'Soccer', 'NASCAR', 'WRC'],
+        'answers': ['Formula 1', 'Poker', 'NASCAR', 'WRC'],
       }
     ];
     return MaterialApp(
@@ -46,20 +46,15 @@ class _MyAppState extends State<MyApp> {
         body: Column(
           children: [
             Question(
-              questionText: questions[_questionIndex],
+              questionText: questions[_questionIndex]['questionText'],
             ),
-            Answer(
-              selectHandler: _answerQuestion,
-              answerText: questions[0],
-            ),
-            Answer(
-              selectHandler: _answerQuestion,
-              answerText: questions[1],
-            ),
-            Answer(
-              selectHandler: _answerQuestion,
-              answerText: questions[2],
-            ),
+            ...(questions[_questionIndex]['answers'] as List<String>)
+                .map((answer) {
+              return Answer(
+                selectHandler: _answerQuestion,
+                answerText: answer,
+              );
+            }).toList()
           ],
         ),
       ),
